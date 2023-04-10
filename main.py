@@ -19,8 +19,8 @@ bg = pygame.transform.scale(bg,(x,y)) #Vai transformar meu background no tamanho
 alien = pygame.image.load('images/Slug.jpg').convert_alpha()
 alien = pygame.transform.scale(alien,(50,50))
 
-playerImg = pygame.image.load('images/NAVE.JPG').convert_alpha()
-playerImg = pygame.transform.scale(playerImg,(50,50))
+playerImg = pygame.image.load('images/nave.png').convert_alpha()
+playerImg = pygame.transform.scale(playerImg,(100,100))
 playerImg = pygame.transform.rotate(playerImg,-90) # girar a imagem na posição que prefirir
 
 missel = pygame.image.load('images/tiro.jpg').convert_alpha()
@@ -42,8 +42,8 @@ pos_player_x = 200
 pos_player_y = 300
 
 velocidade_x_missil = 0
-pos_x_missil = 200
-pos_y_missil = 300
+pos_x_missil = 235
+pos_y_missil = 335
 
 vida = 4
 
@@ -72,8 +72,8 @@ def respawn():
 # Função de Respaw do missel:
 def respawn_missil():
     triggered = False
-    respawn_missil_x = pos_player_x
-    respawn_missil_y = pos_player_y
+    respawn_missil_x = pos_player_x + 35
+    respawn_missil_y = pos_player_y + 35
     velocidade_x_missil = 0
     return [respawn_missil_x,respawn_missil_y,triggered,velocidade_x_missil]
 
@@ -164,10 +164,11 @@ while rodando:
     pos_x_missil += velocidade_x_missil
 
     #Criar a cor na tela
-    pygame.draw.rect(screen,(255,0,0), player_rect,4)
-    pygame.draw.rect(screen, (255, 0, 0), missil_rect, 4)
-    pygame.draw.rect(screen, (255, 0, 0), alien_rect, 4)
-
+    '''
+    pygame.draw.rect(screen, (0, 0, 0), player_rect,4)
+    pygame.draw.rect(screen, (0, 0, 0), missil_rect, 4)
+    pygame.draw.rect(screen, (0, 0, 0), alien_rect, 4)
+    '''
     #deixar as margens do Draw acima de acordo com a posição de cada item
     #Posição do React:
     player_rect.y = pos_player_y
@@ -187,7 +188,7 @@ while rodando:
     screen.blit(playerImg,(pos_player_x,pos_player_y))
 
 
-    score = font.render(f' Pontos: {int(pontos)} ', True, (0,0,0))
+    score = font.render(f' Pontos: {int(pontos)} ', True, (0,0,0)) #os valores (0,0,0) servem para mudança de cores
     vidas = font.render(f' Vidas:  ', True, (0, 0, 0))
     screen.blit(score, (1000,47)) # Posição do nome pontos
     screen.blit(vidas, (50, 47))  # Posição do nome pontos
