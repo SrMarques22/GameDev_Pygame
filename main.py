@@ -1,5 +1,4 @@
 import random
-from time import sleep
 import pygame
 
 pygame.init()
@@ -24,7 +23,7 @@ playerImg = pygame.transform.scale(playerImg,(90,90))
 playerImg = pygame.transform.rotate(playerImg,-90) # girar a imagem na posição que prefirir
 
 missel = pygame.image.load('images/tiro.png').convert_alpha()
-missel = pygame.transform.scale(missel,(25,25))
+missel = pygame.transform.scale(missel,(35,35))
 #missel = pygame.transform.rotate(missel,-45) # girar a imagem na posição que prefirir
 
 
@@ -44,14 +43,13 @@ pos_y_missil = 335
 
 vida = 4
 
-
 triggered = False
 
 pontos = 0
 
 rodando = True
 
-font = pygame.font.SysFont('/font/colossus.ttf',50)
+font = pygame.font.Font('fonts/colossus.ttf',50)
 
 
 
@@ -112,35 +110,45 @@ while rodando:
     if tecla[pygame.K_UP] and pos_player_y > 1: # O argumento MENOR que 1 é pra ele não sair da tela
         pos_player_y -=1
         if pontos >= 10:
-            pos_player_y -= 2
+            pos_player_y -= 3
         if not triggered: # se o botão de tiro não for acionado o missil que fica por baixo da imagem fica seguindo a mesma posição da nave
             pos_y_missil -=1
             if pontos >= 10:
-                pos_y_missil -= 2
+                pos_y_missil -= 3
 
 
 
     if tecla[pygame.K_DOWN] and pos_player_y < 665: # O argumento MENOR que 665 é pra ele não sair da tela
         pos_player_y += 1
         if pontos >= 10:
-            pos_player_y += 2
+            pos_player_y += 3
         if not triggered: # se o botão de tiro não for acionado o missil que fica por baixo da imagem fica seguindo a mesma posição da nave
             pos_y_missil += 1
             if pontos >= 9:
-                pos_y_missil += 2
+                pos_y_missil += 3
 
     if tecla[pygame.K_SPACE]:
         triggered = True # quando o botão for pressionado ele vai atirar
         velocidade_x_missil = 1.5 # além de atirar o missel vai se mover
         if pontos >= 9 :
-            velocidade_x_missil = 3.1
+            velocidade_x_missil = 3
 
 
 
     # Fechar o programa se atingir a pontuação -1
     if vida == 0:
-        rodando = False
-
+        gameover = font.render(f' GAME OVER ', True, (0, 0, 0))
+        pontacao = font.render(f' PONTUAÇÃO :{pontos}', True, (0, 0, 0))
+        pos_alien_x = 1500
+        pos_alien_y = 1500
+        pos_y_missil = pos_player_y + 35
+        pos_x_missil = pos_player_x + 35
+        velocidade_x_missil = 0
+        screen.blit(gameover,(480,350))
+        screen.blit(pontacao, (480, 450))
+        if tecla[pygame.QUIT]:
+            triggered = True
+            rodando = False
 
 
     # Respawn Alien:
@@ -165,15 +173,16 @@ while rodando:
 
     #Colocando os icones de coração:
     if vida == 3:
-        screen.blit(heart, (150, 17))
-        screen.blit(heart, (190, 17))
-        screen.blit(heart, (230, 17))
+        screen.blit(heart, (10, 17))
+        screen.blit(heart, (50, 17))
+        screen.blit(heart, (90, 17))
 
     if vida == 2:
-        screen.blit(heart, (150, 17))
-        screen.blit(heart, (190, 17))
+        screen.blit(heart, (10, 17))
+        screen.blit(heart, (50, 17))
     if vida == 1:
-        screen.blit(heart, (150, 17))
+        screen.blit(heart, (10, 17))
+
 
     # Velocidade do Alien
     pos_alien_x -=1
@@ -212,10 +221,8 @@ while rodando:
     screen.blit(playerImg,(pos_player_x,pos_player_y))
 
 
-    score = font.render(f' Pontos: {int(pontos)} ', True, (0,0,0)) #os valores (0,0,0) servem para mudança de cores
-    vidas = font.render(f' Vidas:  ', True, (0, 0, 0))
+    score = font.render(f' PONTOS: {int(pontos)} ', True, (0,0,0)) #os valores (0,0,0) servem para mudança de cores
     screen.blit(score, (1000,47)) # Posição do nome pontos
-    screen.blit(vidas, (50, 47))  # Posição do nome pontos
 
 
 
