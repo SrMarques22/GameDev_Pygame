@@ -49,7 +49,7 @@ pontos = 0
 
 rodando = True
 
-font = pygame.font.Font('fonts/colossus.ttf',50)
+font = pygame.font.Font('fonts/game_over.ttf',100)
 
 
 
@@ -138,7 +138,7 @@ while rodando:
     # Fechar o programa se atingir a pontuação -1
     if vida == 0:
         gameover = font.render(f' GAME OVER ', True, (0, 0, 0))
-        pontacao = font.render(f' PONTUAÇÃO :{pontos}', True, (0, 0, 0))
+        pontacao = font.render(f' SCORE :{pontos}', True, (0, 0, 0))
         pos_alien_x = 1500
         pos_alien_y = 1500
         pos_y_missil = pos_player_y + 35
@@ -221,8 +221,8 @@ while rodando:
     screen.blit(playerImg,(pos_player_x,pos_player_y))
 
 
-    score = font.render(f' PONTOS: {int(pontos)} ', True, (0,0,0)) #os valores (0,0,0) servem para mudança de cores
-    screen.blit(score, (1000,47)) # Posição do nome pontos
+    score = font.render(f' SCORE: {int(pontos)} ', True, (0,0,0)) #os valores (0,0,0) servem para mudança de cores
+    screen.blit(score, (1010,47)) # Posição do nome pontos
 
 
 
