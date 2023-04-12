@@ -1,5 +1,5 @@
 import random
-
+from time import sleep
 import pygame
 
 pygame.init()
@@ -16,11 +16,11 @@ bg = pygame.image.load('images/pixel_bg.jpg').convert_alpha() # Essa é a imagem
 bg = pygame.transform.scale(bg,(x,y)) #Vai transformar meu background no tamanho da janela que definimos
 
 #Personagens:
-alien = pygame.image.load('images/Slug.jpg').convert_alpha()
-alien = pygame.transform.scale(alien,(50,50))
+alien = pygame.image.load('images/alien.png').convert_alpha()
+alien = pygame.transform.scale(alien,(90,80))
 
 playerImg = pygame.image.load('images/nave.png').convert_alpha()
-playerImg = pygame.transform.scale(playerImg,(100,100))
+playerImg = pygame.transform.scale(playerImg,(90,90))
 playerImg = pygame.transform.rotate(playerImg,-90) # girar a imagem na posição que prefirir
 
 missel = pygame.image.load('images/tiro.jpg').convert_alpha()
@@ -37,7 +37,6 @@ heart = pygame.transform.scale(heart,(80,80))
 pos_alien_x = 500
 pos_alien_y = 360
 
-velocidade_y_player = 0
 pos_player_x = 200
 pos_player_y = 300
 
@@ -115,35 +114,51 @@ while rodando:
     tecla = pygame.key.get_pressed()
     if tecla[pygame.K_UP] and pos_player_y > 1: # O argumento MENOR que 1 é pra ele não sair da tela
         pos_player_y -=1
+        if pontos >= 10:
+            pos_player_y -= 2
         if not triggered: # se o botão de tiro não for acionado o missil que fica por baixo da imagem fica seguindo a mesma posição da nave
             pos_y_missil -=1
+            if pontos >= 10:
+                pos_y_missil -= 2
+
+
 
     if tecla[pygame.K_DOWN] and pos_player_y < 665: # O argumento MENOR que 665 é pra ele não sair da tela
         pos_player_y += 1
+        if pontos >= 10:
+            pos_player_y += 2
         if not triggered: # se o botão de tiro não for acionado o missil que fica por baixo da imagem fica seguindo a mesma posição da nave
             pos_y_missil += 1
+            if pontos >= 9:
+                pos_y_missil += 2
 
     if tecla[pygame.K_SPACE]:
         triggered = True # quando o botão for pressionado ele vai atirar
         velocidade_x_missil = 1.5 # além de atirar o missel vai se mover
+        if pontos >= 9 :
+            velocidade_x_missil = 3.1
+
+
 
     # Fechar o programa se atingir a pontuação -1
     if vida == 0:
         rodando = False
 
 
-    # Respawn:
+
+    # Respawn Alien:
     if pos_alien_x == 50 :
         pos_alien_x = respawn()[0]
         pos_alien_y = respawn()[1]
-        # Respawn Missil:
-        # se passar do tamanho da tela de 1300 ele vai aplicar o def respawn do missil
+    # Respawn Missil:
+    # se passar do tamanho da tela de 1300 ele vai aplicar o def respawn do missil
     if pos_x_missil >= 1300:
         pos_x_missil,pos_y_missil,triggered,velocidade_x_missil = respawn_missil()
 
     if pos_alien_x == 50 or colisions():
         pos_alien_x = respawn()[0]
         pos_alien_y = respawn()[1]
+
     #Velocidade de Movimento de troca de imagem
     x -= 0.5
 
@@ -159,9 +174,17 @@ while rodando:
     if vida == 1:
         screen.blit(heart, (150, 17))
 
+    # Velocidade do Alien
+    pos_alien_x -=1
+    if pontos >= 10:
+        pos_alien_x -= 1.2
 
-    pos_alien_x -=1 # Dar a posição do Alien para ele ir da equerda pra direita
+
+    # Velocidade do Missil
     pos_x_missil += velocidade_x_missil
+
+
+
 
     #Criar a cor na tela
     '''
