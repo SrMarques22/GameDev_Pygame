@@ -23,12 +23,10 @@ playerImg = pygame.image.load('images/nave.png').convert_alpha()
 playerImg = pygame.transform.scale(playerImg,(90,90))
 playerImg = pygame.transform.rotate(playerImg,-90) # girar a imagem na posição que prefirir
 
-missel = pygame.image.load('images/tiro.jpg').convert_alpha()
+missel = pygame.image.load('images/tiro.png').convert_alpha()
 missel = pygame.transform.scale(missel,(25,25))
 #missel = pygame.transform.rotate(missel,-45) # girar a imagem na posição que prefirir
 
-missel = pygame.image.load('images/tiro.jpg').convert_alpha()
-missel = pygame.transform.scale(missel,(25,25))
 
 heart = pygame.image.load('images/heart.png').convert_alpha()
 heart = pygame.transform.scale(heart,(80,80))
@@ -83,7 +81,6 @@ def colisions():
     global vida
 
     if player_rect.colliderect(alien_rect) or alien_rect.x == 60:
-        #pontos -= 1
         vida -= 1
         return True
     elif missil_rect.colliderect(alien_rect):
@@ -150,6 +147,8 @@ while rodando:
     if pos_alien_x == 50 :
         pos_alien_x = respawn()[0]
         pos_alien_y = respawn()[1]
+        if pontos >= 10:
+            pos_alien_x -= 1.2
     # Respawn Missil:
     # se passar do tamanho da tela de 1300 ele vai aplicar o def respawn do missil
     if pos_x_missil >= 1300:
@@ -158,6 +157,8 @@ while rodando:
     if pos_alien_x == 50 or colisions():
         pos_alien_x = respawn()[0]
         pos_alien_y = respawn()[1]
+        if pontos >= 10:
+            pos_alien_x -= 1.2
 
     #Velocidade de Movimento de troca de imagem
     x -= 0.5
