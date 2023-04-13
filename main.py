@@ -109,7 +109,7 @@ while rodando:
     tecla = pygame.key.get_pressed()
     if tecla[pygame.K_UP] and pos_player_y > 1: # O argumento MENOR que 1 é pra ele não sair da tela
         pos_player_y -=1
-        if pontos >= 10:
+        if pontos >= 9:
             pos_player_y -= 3
         if not triggered: # se o botão de tiro não for acionado o missil que fica por baixo da imagem fica seguindo a mesma posição da nave
             pos_y_missil -=1
@@ -120,7 +120,7 @@ while rodando:
 
     if tecla[pygame.K_DOWN] and pos_player_y < 630: # O argumento MENOR que 665 é pra ele não sair da tela
         pos_player_y += 1
-        if pontos >= 10:
+        if pontos >= 9:
             pos_player_y += 3
         if not triggered: # se o botão de tiro não for acionado o missil que fica por baixo da imagem fica seguindo a mesma posição da nave
             pos_y_missil += 1
