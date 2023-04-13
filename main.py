@@ -11,7 +11,7 @@ screen = pygame.display.set_mode((x,y)) # Setar o tamanho da tela definida acima
 pygame.display.set_caption('GameDev Pygame') # Setar o nome do game na janela
 
 # Background
-bg = pygame.image.load('images/pixel_bg.jpg').convert_alpha() # Essa é a imagem que fica sempre fixa
+bg = pygame.image.load('images/pixel_bg.png').convert_alpha() # Essa é a imagem que fica sempre fixa
 bg = pygame.transform.scale(bg,(x,y)) #Vai transformar meu background no tamanho da janela que definimos
 
 #Personagens:
@@ -118,7 +118,7 @@ while rodando:
 
 
 
-    if tecla[pygame.K_DOWN] and pos_player_y < 665: # O argumento MENOR que 665 é pra ele não sair da tela
+    if tecla[pygame.K_DOWN] and pos_player_y < 630: # O argumento MENOR que 665 é pra ele não sair da tela
         pos_player_y += 1
         if pontos >= 10:
             pos_player_y += 3
