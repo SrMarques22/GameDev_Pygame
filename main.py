@@ -113,7 +113,7 @@ while rodando:
             pos_player_y -= 3
         if not triggered: # se o botão de tiro não for acionado o missil que fica por baixo da imagem fica seguindo a mesma posição da nave
             pos_y_missil -=1
-            if pontos >= 10:
+            if pontos >= 9:
                 pos_y_missil -= 3
 
 
